@@ -28,3 +28,4 @@ C:\Users\Mr Mesa\RiderProjects\StockManagement\StockManagement\obj\Debug\net8.0\
 C:\Users\Mr Mesa\RiderProjects\StockManagement\StockManagement\obj\Debug\net8.0\StockManagement.pdb
 C:\Users\Mr Mesa\RiderProjects\StockManagement\StockManagement\obj\Debug\net8.0\StockManagement.genruntimeconfig.cache
 C:\Users\Mr Mesa\RiderProjects\StockManagement\StockManagement\obj\Debug\net8.0\ref\StockManagement.dll
+C:\Users\Mr Mesa\RiderProjects\StockManagement\StockManagement\obj\Debug\net8.0\StockManagement.sourcelink.json

@@ -1,1 +1,43 @@
-﻿<p>Item Type List</p>
+﻿
+<div class="bg-secondary bg-opacity-10">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center p-2">
+            <div>
+                <h4 class="m-0">ItemType List</h4>
+            </div>
+            <div>
+                <a 
+                    asp-area=""
+                    asp-controller="ItemType"
+                    asp-action="Add"
+                    class="btn btn-primary">Add</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Note</th>
+            <th width="150"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Water</td>
+            <td>Water.png</td>
+            <td>Water</td>
+            <td class="text-center">
+                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-danger">Delete</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

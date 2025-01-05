@@ -11,4 +11,11 @@ public class ItemTypeController : Controller
     {
         return View();
     }
+
+    [HttpGet]
+    [ActionName("Add")]
+    public IActionResult Create()
+    {
+        return View();
+    }
 }
