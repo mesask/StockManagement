@@ -43,7 +43,65 @@ public class ItemTypeService(SMDbContext db, IMapper mapper)
         //     Image = entry.Image,
         //     Note = entry.Note,
         // };
-
+        // return mapper.Map<ItemTypeViewModel>(entry);
         //return View(itemType);
     }
+    // public ItemTypeViewModel EditAsync(ItemTypeEditModel model)
+    // {
+    //     var entry = db.ItemType.Find(model.Id);
+    //     if (entry == null)
+    //     {
+    //         throw new Exception("Item Type not found!");
+    //     }
+    //     entry.Name = model.Name;
+    //     entry.Image = model.Image;
+    //     entry.Note = model.Note;
+    //     db.SaveChanges();
+    //     return mapper.Map<ItemTypeViewModel>(entry);
+    // }
+    public async Task<ItemTypeViewModel> UpdateOrEditAsync(ItemTypeEditModel model)
+    {
+        var entry = await db.ItemType.FindAsync(model.Id);
+        if (entry == null)
+        {
+            throw new Exception("Item type not found !!!");
+        }
+        entry.Name = model.Name;
+        entry.Image = model.Image;
+        entry.Note = model.Note;
+        await db.SaveChangesAsync();
+        return mapper.Map<ItemTypeViewModel>(entry);
+    }
+
+    public async Task<ItemTypeViewModel> DeleteAsync(long id)
+    {
+        var entry = await db.ItemType.FindAsync(id);
+        if (entry == null)
+        {
+            throw new Exception("Item type not found !!!");
+        }
+        db.ItemType.Remove(entry);
+        await db.SaveChangesAsync();
+        return mapper.Map<ItemTypeViewModel>(entry);
+    }
+    // public ItemTypeViewModel DeleteAsync(ItemTypeEditModel model)
+    // {
+    //     // var entry = db.ItemType.FirstOrDefault(x => x.Id == model.Id);
+    //     var entry = db.ItemType.Find(model.Id);
+    //     if (entry == null)
+    //     {
+    //         throw new Exception("Item Type not found!");
+    //     }
+    //     
+    //     // var itemType = new ItemTypeViewModel
+    //     // {
+    //     //     Id = entry.Id,
+    //     //     Name = entry.Name,
+    //     //     Image = entry.Image,
+    //     //     Note = entry.Note,
+    //     // };
+    //     db.ItemType.Remove(entry);
+    //     db.SaveChanges();
+    //     return mapper.Map<ItemTypeViewModel>(entry);
+    // }
 }

@@ -89,54 +89,62 @@ public class ItemTypeController(SMDbContext dbContext, IMapper mapper, ItemTypeS
     
     [HttpPost]
     [ActionName("Edit")]
-    public IActionResult Edit(ItemTypeEditModel model)
+    public async Task<IActionResult> Edit(ItemTypeEditModel model)
     {
-        var entry = _dbContext.ItemType.Find(model.Id);
-        if (entry == null)
-        {
-            return View("Edit");
-        }
-        entry.Name = model.Name;
-        entry.Image = model.Image;
-        entry.Note = model.Note;
-        _dbContext.SaveChanges();
-        
+        // var entry = dbContext.ItemType.Find(model.Id);
+        // if (entry == null)
+        // {
+        //     return View("Edit");
+        // }
+        // entry.Name = model.Name;
+        // entry.Image = model.Image;
+        // entry.Note = model.Note;
+        // dbContext.SaveChanges();
+        // return RedirectToAction("List");
+        // service.EditAsync(model);
+        // return RedirectToAction("List");
+        await service.UpdateOrEditAsync(model);
         return RedirectToAction("List");
     }
+
     
     [HttpGet]
     [ActionName("Delete")]
-    public IActionResult Delete(long id)
+    // public IActionResult Delete(long id)
+    public async Task<IActionResult> Delete(long id)
     {
-        var entry = _dbContext.ItemType.Find(id);
-        if (entry == null)
-        {
-            return NotFound();
-        }
-
-        var itemType = new ItemTypeViewModel
-        {
-            Id = entry.Id,
-            Name = entry.Name,
-            Image = entry.Image,
-            Note = entry.Note,
-        };
-
-        return View(itemType);
+        // var entry = _dbContext.ItemType.Find(id);
+        // if (entry == null)
+        // {
+        //     return NotFound();
+        // }
+        //
+        // var itemType = new ItemTypeViewModel
+        // {
+        //     Id = entry.Id,
+        //     Name = entry.Name,
+        //     Image = entry.Image,
+        //     Note = entry.Note,
+        // };
+        //
+        // return View(itemType);
+        return View(await service.FindAsync(id));
     }
     
     [HttpPost]
     [ActionName("Delete")]
-    public IActionResult Delete(ItemTypeEditModel model)
+    public async Task<IActionResult> Delete(ItemTypeEditModel model)
     {
-        var entry = _dbContext.ItemType.Find(model.Id);
-        if (entry == null)
-        {
-            return View("Delete");
-        }
-        _dbContext.ItemType.Remove(entry);
-        _dbContext.SaveChanges();
-        
+        // var entry = _dbContext.ItemType.Find(model.Id);
+        // if (entry == null)
+        // {
+        //     return View("Delete");
+        // }
+        // _dbContext.ItemType.Remove(entry);
+        // _dbContext.SaveChanges();
+        //
+        // return RedirectToAction("List");
+        await service.DeleteAsync(model.Id);
         return RedirectToAction("List");
     }
 

@@ -11,5 +11,7 @@ public class AutoMapper : Profile
         CreateMap<ItemType,ItemTypeListModel>().ReverseMap();
         CreateMap<ItemType,ItemTypeAddModel>().ReverseMap();
         CreateMap<ItemType,ItemTypeViewModel>().ReverseMap();
+        // CreateMap<ItemType,ItemTypeEditModel>().ReverseMap();
+        //CreateMap<ItemType,ItemTypeDeleteModel>().ReverseMap();
     }
 }
