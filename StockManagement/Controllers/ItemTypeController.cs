@@ -20,7 +20,7 @@ public class ItemTypeController(SMDbContext dbContext, IMapper mapper, ItemTypeS
 
     [HttpGet]
     [ActionName("List")]
-    public IActionResult List()
+    public async Task<IActionResult> List()
     {
         
         // var itemTypes = new List<ItemTypeListModel>();
@@ -37,7 +37,7 @@ public class ItemTypeController(SMDbContext dbContext, IMapper mapper, ItemTypeS
         // }
 
         // return View(itemTypes);
-        return View(service.SearchAsync());
+        return View(await service.SearchAsync());
         
     }
 
@@ -50,7 +50,7 @@ public class ItemTypeController(SMDbContext dbContext, IMapper mapper, ItemTypeS
 
     [HttpPost]
     [ActionName("Add")]
-    public IActionResult Add(ItemTypeAddModel model)
+    public async Task<IActionResult> Add(ItemTypeAddModel model)
     {
         // var itemType = new ItemType
         // {
@@ -60,7 +60,7 @@ public class ItemTypeController(SMDbContext dbContext, IMapper mapper, ItemTypeS
         // };
         // _dbContext.ItemType.Add(_mapper.Map<ItemType>(model));
         // _dbContext.SaveChanges();
-        service.AddAsync(model);
+        await service.AddAsync(model);
         return RedirectToAction("List");
     }
 

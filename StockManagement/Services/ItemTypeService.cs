@@ -8,19 +8,19 @@ namespace StockManagement.Services;
 
 public class ItemTypeService(SMDbContext db, IMapper mapper)
 {
-    public List<ItemTypeListModel> SearchAsync()
+    public async Task<List<ItemTypeListModel>> SearchAsync()
     {
         // var entries = _dbContext.ItemType.ToList();
         // return View(_mapper.Map<List<ItemTypeListModel>>(entries));
-        var entries = db.ItemType.ToList();
+        var entries = await db.ItemType.ToListAsync();
         return mapper.Map<List<ItemTypeListModel>>(entries);
     }
 
-    public ItemTypeViewModel AddAsync(ItemTypeAddModel model)
+    public async Task<ItemTypeViewModel> AddAsync(ItemTypeAddModel model)
     {
         var entry = mapper.Map<ItemType>(model);
-        db.ItemType.Add(entry);
-        db.SaveChanges();
+        await db.ItemType.AddAsync(entry);
+        await db.SaveChangesAsync();
         return mapper.Map<ItemTypeViewModel>(entry);
     }
     
