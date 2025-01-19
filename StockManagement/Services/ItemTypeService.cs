@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using StockManagement.Data;
 using StockManagement.Models.Domain;
 using StockManagement.Models.ViewModels;
@@ -21,5 +22,28 @@ public class ItemTypeService(SMDbContext db, IMapper mapper)
         db.ItemType.Add(entry);
         db.SaveChanges();
         return mapper.Map<ItemTypeViewModel>(entry);
+    }
+    
+    // async and await , Task 
+
+    public async Task<ItemTypeViewModel> FindAsync(long id)
+    {
+        var entry = await db.ItemType.FirstOrDefaultAsync(x => x.Id == id);
+        if (entry == null)
+        {
+            throw new Exception("Item type not found !!!");
+        }
+        
+        return mapper.Map<ItemTypeViewModel>(entry);
+        
+        // var itemType = new ItemTypeViewModel
+        // {
+        //     Id = entry.Id,
+        //     Name = entry.Name,
+        //     Image = entry.Image,
+        //     Note = entry.Note,
+        // };
+
+        //return View(itemType);
     }
 }

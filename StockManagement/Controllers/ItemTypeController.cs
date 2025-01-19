@@ -66,23 +66,24 @@ public class ItemTypeController(SMDbContext dbContext, IMapper mapper, ItemTypeS
 
     [HttpGet]
     [ActionName("Edit")]
-    public IActionResult Edit(long id)
+    public async Task<IActionResult> Edit(long id)
     {
-        var entry = _dbContext.ItemType.Find(id);
-        if (entry == null)
-        {
-            return NotFound();
-        }
+        // var entry = _dbContext.ItemType.Find(id);
+        // if (entry == null)
+        // {
+        //     return NotFound();
+        // }
+        //
+        // var itemType = new ItemTypeViewModel
+        // {
+        //     Id = entry.Id,
+        //     Name = entry.Name,
+        //     Image = entry.Image,
+        //     Note = entry.Note,
+        // };
 
-        var itemType = new ItemTypeViewModel
-        {
-            Id = entry.Id,
-            Name = entry.Name,
-            Image = entry.Image,
-            Note = entry.Note,
-        };
-
-        return View(itemType);
+        // return View(itemType);
+        return View(await service.FindAsync(id));
     }
 
     
