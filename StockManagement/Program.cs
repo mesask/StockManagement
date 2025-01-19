@@ -15,6 +15,7 @@ builder.Services.AddDbContext<SMDbContext>(options =>
 
 // Add register service
 builder.Services.AddScoped<ItemTypeService>();
+builder.Services.AddScoped<UnitService>();
 
 //Add Service AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
