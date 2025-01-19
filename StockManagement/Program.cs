@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StockManagement.Data;
+using StockManagement.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,9 @@ builder.Services.AddDbContext<SMDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     }
     );
+
+// Add register service
+builder.Services.AddScoped<ItemTypeService>();
 
 //Add Service AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));

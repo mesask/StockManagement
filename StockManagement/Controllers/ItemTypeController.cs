@@ -3,25 +3,26 @@ using Microsoft.AspNetCore.Mvc;
 using StockManagement.Data;
 using StockManagement.Models.Domain;
 using StockManagement.Models.ViewModels;
+using StockManagement.Services;
 
 namespace StockManagement.Controllers;
 
-public class ItemTypeController : Controller
+public class ItemTypeController(SMDbContext dbContext, IMapper mapper, ItemTypeService service) : Controller
 {
     private readonly SMDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public ItemTypeController(SMDbContext dbContext, IMapper mapper)
-    {
-        _dbContext = dbContext;
-        _mapper = mapper;
-    }
+    // public ItemTypeController(SMDbContext dbContext, IMapper mapper, ItemTypeService service)
+    // {
+    //     _dbContext = dbContext;
+    //     _mapper = mapper;
+    // }
 
     [HttpGet]
     [ActionName("List")]
     public IActionResult List()
     {
-        var entries = _dbContext.ItemType.ToList();
+        
         // var itemTypes = new List<ItemTypeListModel>();
         // foreach (var entry in entries)
         // {
@@ -36,7 +37,8 @@ public class ItemTypeController : Controller
         // }
 
         // return View(itemTypes);
-        return View(_mapper.Map<List<ItemTypeListModel>>(entries));
+        return View(service.SearchAsync());
+        
     }
 
     [HttpGet]
@@ -56,8 +58,9 @@ public class ItemTypeController : Controller
         //     Image = model.Image,
         //     Note = model.Note,
         // };
-        _dbContext.ItemType.Add(_mapper.Map<ItemType>(model));
-        _dbContext.SaveChanges();
+        // _dbContext.ItemType.Add(_mapper.Map<ItemType>(model));
+        // _dbContext.SaveChanges();
+        service.AddAsync(model);
         return RedirectToAction("List");
     }
 

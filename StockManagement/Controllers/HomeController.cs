@@ -5,9 +5,10 @@ using StockManagement.Models;
 namespace StockManagement.Controllers;
 
 public class HomeController : Controller
+// public class HomeController(ILogger<HomeController> _logger) : Controller
 {
     private readonly ILogger<HomeController> _logger;
-
+    
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
