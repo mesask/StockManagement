@@ -1,4 +1,11 @@
-﻿<div class="bg-secondary bg-opacity-10">
+﻿@model List<StockManagement.Models.ViewModels.ItemListModel>;
+
+@{
+    var prevPage = Convert.ToInt32(ViewBag.PageNumber - 1);
+    var nextPage = Convert.ToInt32(ViewBag.PageNumber + 1);
+}
+
+<div class="bg-secondary bg-opacity-10">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center p-2">
             <div>
@@ -16,12 +23,60 @@
 </div>
 
 <div class="container">
+    <form method="get" asp-controller="Item" asp-action="List">
+        <div class="row align-items-end">
+            <div class="mb-3 col-4">
+                <label class="form-label">Search</label>
+                <input type="text" value="@ViewBag.SearchQuery" name="searchQuery" class="form-control">
+            </div>
+            <div class="mb-3 col-2">
+                <button type="submit" class="btn btn-warning">
+                    Filter
+                </button>
+            </div>
+        </div>
+    </form>
+    @*     <form method="get" asp-controller="Item" asp-action="List"> *@
+    @*         <div class="row align-items-end> *@
+    @*             <div class="mb-3 col-4" > *@
+    @*                 <label class="form-label">Search</label> *@
+    @*                 <input type="text" value="@ViewBag.SearchQuery" name="searchQuery" class="form-control"> *@
+    @*                 </div> *@
+    @*             <div class="mb-3 col-2"> *@
+    @*                 <button type="submit" class="btn btn-warning"> *@
+    @*                     Filter *@
+    @*                 </button> *@
+    @*             </div> *@
+    @*         </div> *@
+    @*          *@
+    @*     </form> *@
     <table class="table table-hover">
         <thead>
         <tr>
             <th>#</th>
             <th>Code</th>
-            <th>Name</th>
+            <th>
+                Name
+                <span>
+                    <a 
+                        asp-controller="Item"
+                        asp-action="List"
+                        asp-route-sortBy="Name"
+                        asp-route-sortDirection="Desc"
+                        class="btn btn-light btn-sm">
+                        <i class="bi bi-arrow-up"></i>
+                    </a>
+                    <a
+                        asp-controller="Item"
+                        asp-action="List"
+                        asp-route-sortBy="Name"
+                        asp-route-sortDirection="Asc"
+                        class="btn btn-light btn-sm">
+                        <i class="bi bi-arrow-down"></i>
+                    </a>
+                </span>
+            </th>
+            
             <th>Image</th>
             <th>Cost</th>
             <th>Price</th>
@@ -32,21 +87,68 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>1</td>
-            <td>T-001</td>
-            <td>Item-1</td>
-            <td>Image</td>
-            <td>1 $</td>
-            <td>1.5 $</td>
-            <td>Can</td>
-            <td>Energy</td>
-            <td>No</td>
-            <td>
-                <a class="btn btn-primary">Edit</a>
-                <a class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Code</td>
+                    <td>@item.Name</td>
+                    <td>@item.Image</td>
+                    <td>@item.Cost.ToString("#,##0.0#") $</td>
+                    <td>@item.Price.ToString("#,##0.0#") $</td>
+                    <td>@item.UnitName</td>
+                    <td>@item.ItemTypeName</td>
+                    <td>@item.IsStock</td>
+                    @* <td>No</td> *@
+                    <td>
+                        <a class="btn btn-primary">Edit</a>
+                        <a class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+
+
         </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a asp-controller="Item"
+                   asp-action="List"
+                   asp-route-pageNumber="@prevPage"
+                   asp-route-pageSize="@ViewBag.PageSize"
+                   asp-route-sortBy="@ViewBag.SortBy"
+                   asp-route-sortDirection="@ViewBag.SortDirection"
+                   class="page-link" >Previous</a>
+            </li>
+            
+            @for (var i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item">
+                    <a asp-controller="Item"
+                       asp-action="List"
+                       asp-route-pageNumber="@i"
+                       asp-route-pageSize="@ViewBag.PageSize"
+                       asp-route-sortBy="@ViewBag.SortBy"
+                       asp-route-sortDirection="@ViewBag.SortDirection"
+                        class="page-link" >@i</a>
+                </li>
+            }
+            
+            @* <li class="page-item"><a class="page-link" href="#">2</a></li> *@
+            @* <li class="page-item"><a class="page-link" href="#">3</a></li> *@
+            <li class="page-item">
+                <a asp-controller="Item"
+                   asp-action="List"
+                   asp-route-pageNumber="@nextPage"
+                   asp-route-pageSize="@ViewBag.PageSize"
+                   asp-route-sortBy="@ViewBag.SortBy"
+                   asp-route-sortDirection="@ViewBag.SortDirection"
+                   class="page-link" >Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>

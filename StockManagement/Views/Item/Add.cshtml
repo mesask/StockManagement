@@ -1,4 +1,6 @@
-﻿<div class="bg-secondary bg-opacity-10">
+﻿@model StockManagement.Models.ViewModels.ItemAddModel;
+
+<div class="bg-secondary bg-opacity-10">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center p-2">
             <div>
@@ -15,56 +17,56 @@
         <div class="row mb-3">
             <div class="col-6">
                 <label class="form-label" for="code">Code</label>
-                <input class="form-control" type="text" id="code"/>
+                <input asp-for="Code" class="form-control" type="text" id="code"/>
             </div>
             <div class="col-6">
                 <label class="form-label" for="name">Name</label>
-                <input class="form-control" type="text" id="name"/>
+                <input asp-for="Name" class="form-control" type="text" id="name"/>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-6">
                 <label class="form-label" for="cost">Cost</label>
-                <input class="form-control" type="text" id="cost"/>
+                <input asp-for="Cost" class="form-control" type="text" id="cost"/>
             </div>
             <div class="col-6">
                 <label class="form-label" for="price">Price</label>
-                <input class="form-control" type="text" id="price"/>
+                <input asp-for="Price" class="form-control" type="text" id="price"/>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-6">
                 <label class="form-label" for="unit">Unit</label>
-                <select class="form-select" id="unit">
-                    <option value="1">Unit</option>
+                <select asp-for="UnitId" class="form-select" id="unit">
+                    <option value="1">Can</option>
                 </select>
             </div>
             <div class="col-6">
                 <label class="form-label" for="itemType">ItemType</label>
-                <select class="form-select" id="itemType">
-                    <option value="1">ItemType</option>
+                <select asp-for="ItemTypeId" class="form-select" id="itemType">
+                    <option value="1">Water</option>
                 </select>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-6">
                 <label class="form-label" for="image">Image</label>
-                <input class="form-control" type="text" id="image"/>
+                <input asp-for="Image" class="form-control" type="text" id="image"/>
             </div>
             <div class="col-6">
                 <label class="form-label" for="isStock">IsStock</label>
-                <input class="form-check" type="checkbox" id="isStock"/>
+                <input asp-for="IsStock" class="form-check" type="checkbox" id="isStock"/>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-12">
                 <label class="form-label" for="note">Note</label>
-                <input class="form-control" type="text" id="note"/>
+                <input asp-for="Note" class="form-control" type="text" id="note"/>
             </div>
         </div>
         <div class="mb-3">
             <button type="submit" class="btn btn-primary me-3">Save</button>
-            <a asp-area="" asp-controller="ItemType"
+            <a asp-area="" asp-controller="Item"
                asp-action="List"
                class="btn btn-secondary">Cancel</a>
         </div>
